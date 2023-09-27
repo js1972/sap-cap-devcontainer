@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install gnupg wget -y && \
   rm -rf /var/lib/apt/lists/*
 
 # Install Liquidprompt for a nice prompt in the terminal.
+# https://liquidprompt.readthedocs.io/en/stable/index.html
 RUN git clone --branch stable https://github.com/nojhan/liquidprompt.git /home/node/liquidprompt
 
 # Install extra tools for CAP development & deployment.
