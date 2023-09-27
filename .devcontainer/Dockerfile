@@ -64,4 +64,5 @@ RUN npm completion >> /home/node/.bashrc && \
     echo "# Only load Liquidprompt in interactive shells, not from a script or from scp" >> /home/node/.bashrc && \
     echo "export LP_PATH_METHOD=truncate_to_last_dir" >> /home/node/.bashrc && \
     echo "export LP_MARK_GIT=$" >> /home/node/.bashrc && \
+    echo "export LP_ENABLE_SHLVL=0" >> /home/node/.bashrc && \
     echo '[[ $- = *i* ]] && source ~/liquidprompt/liquidprompt' >> /home/node/.bashrc
