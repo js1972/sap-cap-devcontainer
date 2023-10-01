@@ -1,0 +1,67 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
+{
+  "name": "SAP CAP / UI5 - Node.js devcontainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  "runArgs": ["--platform", "linux/amd64"],
+  
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  //"image": "mcr.microsoft.com/devcontainers/javascript-node:0-18"
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [4004, 3010],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // NOTES:
+  // (1) cf install-plugin does not work as a RUN step in the Dockerfile - no idea why!
+  // (2) npm rebuild is necessary to ensure chrome-headless is properly built
+  // (3) set the default cf api url
+  "postCreateCommand": "cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org && cf install-plugin multiapps -f && cf api https://api.cf.ap10.hana.ondemand.com && echo '\n\n*** CONTAINER READY ***'",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "sapse.vscode-cds",
+        "sapse.sap-ux-fiori-tools-extension-pack",
+        "vscodevim.vim",
+        "dbaeumer.vscode-eslint",
+        "shakram02.bash-beautify",
+        "saposs.xml-toolkit",
+        "mohsen1.prettify-json",
+        "alexcvzz.vscode-sqlite",
+        "sapse.hana-database-explorer",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "janisdd.vscode-edit-csv",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "humao.rest-client",
+        "GitHub.vscode-pull-request-github",
+        "nhoizey.gremlins"
+      ]
+      // "settings": {
+      // }
+    }
+  },
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "node"
+
+  // Mount in /host-home-folder to access your local files from inside the container.
+  // Handy when you want to open any other files that are on hour host PC within the container.
+  "mounts": [
+    "source=${localEnv:HOME},target=/host-home-folder,type=bind,consistency=cached"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
+    "ghcr.io/mikaello/devcontainer-features/modern-shell-utils:1": {}
+  }
+}
