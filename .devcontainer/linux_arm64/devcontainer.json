@@ -63,6 +63,12 @@
   "mounts": [
     "source=${localEnv:HOME},target=/host-home-folder,type=bind,consistency=cached"
   ],
+
+  // Mount the workspace folder into a named docker volume for better dsik performance on macos and windows.
+  // Details -> https://code.visualstudio.com/remote/advancedcontainers/improve-performance
+  "workspaceMount": "source=your-volume-name-here,target=/workspace,type=volume",
+  "workspaceFolder": "/workspace",
+
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
