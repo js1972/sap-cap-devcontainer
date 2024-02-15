@@ -29,7 +29,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         fzf
 
 # Install global node modules for SAP CAP and frontend development.
-RUN npm i -g @sap/cds-dk@7.2.0 yo mbt @ui5/cli @sap/ux-ui5-tooling @sap/generator-fiori @githubnext/github-copilot-cli
+RUN npm i -g @sap/cds-dk@7.6.1 yo mbt @ui5/cli @sap/ux-ui5-tooling @sap/generator-fiori @githubnext/github-copilot-cli
 
 # --- Add better default bash and zsh configuration ---
 
