@@ -27,6 +27,12 @@
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.defaultProfiles.linux": {
+          "zsh": "zsh"
+        }
+      },
       "extensions": [
         "sapse.vscode-cds",
         "sapse.sap-ux-fiori-tools-extension-pack",
@@ -46,8 +52,6 @@
         "GitHub.vscode-pull-request-github",
         "nhoizey.gremlins"
       ]
-      // "settings": {
-      // }
     }
   },
 
