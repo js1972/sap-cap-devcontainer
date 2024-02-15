@@ -67,7 +67,7 @@
   // Mount the workspace folder into a named docker volume for better dsik performance on macos and windows.
   // Details -> https://code.visualstudio.com/remote/advancedcontainers/improve-performance
   // NOTE: When working with named volumes you need to initially clone your git repo into the volume.
-  "workspaceMount": "source=your-volume-name-here,target=/workspace,type=volume",
+  "workspaceMount": "source=my-sap-cap-devcontainer-volume,target=/workspace,type=volume",
   "workspaceFolder": "/workspace",
 
   "features": {
