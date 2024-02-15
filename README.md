@@ -29,3 +29,10 @@ The devcontainer config file adds:
 - Adds features for github cli; shell history; some shell utils.
 
 NOTE: Some of the tools in the Dockerfile do not have arm64 buils yet (mbt) so we keep everything running as amd64 and run in emulation with `--platform=linux/amd64`.
+
+## devcontainer config files
+Two sets of config files exist:
+- linux_amd64 for intel type architectures
+- linux_arm64 for apple silicon based architectures
+
+Vscode only allows one set of these config files inside the root .devcontainer directory when working with named docker volumes so we need to dupalicate one set - I have chosen to use the apple silicon files.
