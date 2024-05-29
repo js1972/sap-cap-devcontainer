@@ -1,4 +1,5 @@
-FROM --platform=linux/amd64 mcr.microsoft.com/devcontainers/javascript-node:0-18
+#FROM --platform=linux/amd64 mcr.microsoft.com/devcontainers/javascript-node:0-18
+FROM --platform=linux/amd64 mcr.microsoft.com/devcontainers/javascript-node:20
 
 # Prepare for apt-based install of Cloud Foundry CLI by adding Cloud Foundry Foundation public key & package repository
 # (see https://docs.cloudfoundry.org/cf-cli/install-go-cli.html#pkg-linux).
