@@ -6,31 +6,39 @@ FROM mcr.microsoft.com/devcontainers/javascript-node:20
 RUN wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add - ; \
     echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
 
-# How to get Puppeteer to work inside docker:
-# https://dev.to/cloudx/how-to-use-puppeteer-inside-a-docker-container-568c
-# We don't need the standalone Chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-
-# Install Google Chrome Stable and fonts
-# Note: this installs the necessary libs to make the browser work with Puppeteer.
-RUN apt-get update && apt-get install gnupg wget -y && \
-  wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg && \
-  sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
-  apt-get update && \
-  apt-get install google-chrome-stable -y --no-install-recommends && \
-  rm -rf /var/lib/apt/lists/*
+## How to get Puppeteer to work inside docker:
+## https://dev.to/cloudx/how-to-use-puppeteer-inside-a-docker-container-568c
+## We don't need the standalone Chromium
+#ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+#
+## Install Google Chrome Stable and fonts
+## Note: this installs the necessary libs to make the browser work with Puppeteer.
+#RUN apt-get update && apt-get install gnupg wget -y && \
+#  wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg && \
+#  sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+#  apt-get update && \
+#  apt-get install google-chrome-stable -y --no-install-recommends && \
+#  rm -rf /var/lib/apt/lists/*
 
 # Install extra tools for CAP development & deployment.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
         sqlite3 \
-        cf7-cli \
+        cf8-cli \
         neovim \
         bash-completion \
         fzf
 
 # Install global node modules for SAP CAP and frontend development.
-RUN npm i -g @sap/cds-dk@7.6.1 yo mbt @ui5/cli @sap/ux-ui5-tooling @sap/generator-fiori @githubnext/github-copilot-cli
+RUN npm i -g @sap/cds-dk@7.9.2 yo @ui5/cli @sap/ux-ui5-tooling @sap/generator-fiori @githubnext/github-copilot-cli
+
+# Install the arm64n version of the mbt tool from github releases. Cannot use npm install for this at the moment (May 2024)
+RUN wget -O cloud-mta-build-tool_1.2.27_Linux_arm64.tar.gz https://github.com/SAP/cloud-mta-build-tool/releases/download/v1.2.27/cloud-mta-build-tool_1.2.27_Linux_arm64.tar.gz \
+  && mkdir -p cloud-mta-build-tool \
+  && tar -xzf cloud-mta-build-tool_1.2.27_Linux_arm64.tar.gz -C cloud-mta-build-tool \
+  && mv cloud-mta-build-tool/mbt /usr/local/bin \
+  && rm -rf cloud-mta-build-tool_1.2.27_Linux_arm64.tar.gz cloud-mta-build-tool
+
 
 # --- Add better default bash and zsh configuration ---
 
