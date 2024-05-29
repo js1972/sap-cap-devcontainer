@@ -22,7 +22,7 @@
   // (1) cf install-plugin does not work as a RUN step in the Dockerfile - no idea why!
   // (2) the cf multiapps plugin must be installed fro url for linux/arm64.
   // (3) set the default cf api url
-  "postCreateCommand": "cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org && cf install-plugin https://github.com/cloudfoundry-incubator/multiapps-cli-plugin/releases/latest/download/multiapps-plugin.linuxarm64 -f && cf api https://api.cf.ap10.hana.ondemand.com && sudo chown node ../workspace && echo '\n\n*** CONTAINER READY ***'",
+  "postCreateCommand": "cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org && cf install-plugin https://github.com/cloudfoundry-incubator/multiapps-cli-plugin/releases/latest/download/multiapps-plugin.linuxarm64 -f && cf api https://api.cf.ap10.hana.ondemand.com && sudo chown node ../workspace && cds add completion -s zsh && echo '\n\n*** CONTAINER READY ***'",
 
   // Configure tool-specific properties.
   "customizations": {
