@@ -32,7 +32,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # Install global node modules for SAP CAP and frontend development.
 RUN npm i -g @sap/cds-dk@7.9.2 yo @ui5/cli @sap/ux-ui5-tooling @sap/generator-fiori @githubnext/github-copilot-cli
 
-# Install the arm64n version of the mbt tool from github releases. Cannot use npm install for this at the moment (May 2024)
+# Install the arm64 version of the mbt tool from github releases. Cannot use npm install for this at the moment (May 2024)
 RUN wget -O cloud-mta-build-tool_1.2.27_Linux_arm64.tar.gz https://github.com/SAP/cloud-mta-build-tool/releases/download/v1.2.27/cloud-mta-build-tool_1.2.27_Linux_arm64.tar.gz \
   && mkdir -p cloud-mta-build-tool \
   && tar -xzf cloud-mta-build-tool_1.2.27_Linux_arm64.tar.gz -C cloud-mta-build-tool \
@@ -64,3 +64,4 @@ RUN npm completion >> /home/node/.bashrc && \
     echo "source /usr/share/doc/fzf/examples/key-bindings.zsh" >> /home/node/.zshrc && \
     echo "source /usr/share/doc/fzf/examples/completion.zsh" >> /home/node/.zshrc && \
     sed -i '/^ZSH_THEME/c\ZSH_THEME="eastwood"' /home/node/.zshrc
+
