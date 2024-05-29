@@ -6,7 +6,7 @@
     "dockerfile": "Dockerfile"
   },
 
-  "runArgs": ["--platform", "linux/amd64"],
+  //"runArgs": ["--platform", "linux/amd64"],
   
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   //"image": "mcr.microsoft.com/devcontainers/javascript-node:0-18"
