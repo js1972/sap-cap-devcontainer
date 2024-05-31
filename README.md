@@ -30,15 +30,17 @@ The devcontainer config file adds:
 - Mount the host computer home folder as /host-home-folder in the container - for easy access to files on the host computer.
 - Adds features for github cli; shell history; some shell utils.
 
-## devcontainer config files
+# devcontainer config files
 Two sets of config files exist:
 - .devcontainer folder - for macos silicon
 - .devcontainer/linux_amd64 - for intel type architectures (older macs and windows).
 
 Vscode only allows one set of these config files inside the root .devcontainer directory when working with named docker volumes so we need to duplicate one set - I have chosen to use the apple silicon files.
 
-## APP TESTING
+# APP TESTING
 This container has chromium and chromium-driver installed for headless browser testing. To use WebDriver.io (wdio) as a test driver install it as per instructions here: https://webdriver.io/docs/gettingstarted and use the [QUnit service](https://github.com/mauriciolauffer/wdio-qunit-service) to link it to your SAPUI5 QUnit tests and OPA5 integration tests.
+
+> We use wdio because Karma is deprecated.
 
 e.g. Run from your CAP project root folder:
 ```
@@ -206,4 +208,37 @@ In your root package json add a script:
 "test": "wdio run ./app/basicapp/webapp/test/wdio.conf.js"
 ```
 
+Check the wdio QUnit service for details on linking to sapui5 Qunit and OPA5 tests.
+
+Here is an example `integration.test.js`:
+```
+describe('QUnit test page OPA', () => {
+    it('should pass QUnit OPA tests - LOCAL', async () => {
+      const url = 'http://localhost:4004/basicapp/webapp/test/integration/opaTests.qunit.html';
+      await browser.url(url);
+      const qunitResults = await browser.getQUnitResults();
+      expect(qunitResults).toBeTruthy();
+    });
+  });
+```
+
+Essentially the wdio test framework is just delegating to existing sapui5 tests.
+
 Now with `cds w` running in one terminal you can use `npn run test` to execute your SAPUI5 tests.
+
+## npm scripts
+Setup some handy npm scripts for testing. Here is an example (note the use of the `concurrently` package to allow for the running of `cds serve` and the wdio tests at the same time:
+
+```
+"scripts": {
+    "start": "cds-serve",
+    "test": "wdio run ./app/basicapp/webapp/test/wdio.conf.js",
+    "test-cicd": "concurrently -n CDS,===WDIO=== -c blue,green --success first --kill-others --hide CDS \"npm start\" \"npm run test\"",
+    "watch-basicapp": "cds watch --open basicapp/webapp/index.html?sap-ui-xx-viewCache=false",
+    "test-basicapp": "cds watch --open basicapp/webapp/test/integration/opaTests.qunit.html"
+  },
+```
+
+`npm run test` will run wdio but requires the cds service to be already running.
+
+`npm run test-cicd` uses the concurrently module to start the cds service and once its up then run the wdio tests.
