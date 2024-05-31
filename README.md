@@ -211,7 +211,7 @@ In your root package json add a script:
 Check the wdio QUnit service for details on linking to sapui5 Qunit and OPA5 tests.
 
 Here is an example `integration.test.js`:
-```
+```js
 describe('QUnit test page OPA', () => {
     it('should pass QUnit OPA tests - LOCAL', async () => {
       const url = 'http://localhost:4004/basicapp/webapp/test/integration/opaTests.qunit.html';
@@ -229,7 +229,7 @@ Now with `cds w` running in one terminal you can use `npn run test` to execute y
 ## npm scripts
 Setup some handy npm scripts for testing. Here is an example (note the use of the `concurrently` package to allow for the running of `cds serve` and the wdio tests at the same time:
 
-```
+```json
 "scripts": {
     "start": "cds-serve",
     "test": "wdio run ./app/basicapp/webapp/test/wdio.conf.js",
