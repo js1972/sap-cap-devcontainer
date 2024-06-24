@@ -224,7 +224,7 @@ describe('QUnit test page OPA', () => {
 
 Essentially the wdio test framework is just delegating to existing sapui5 tests.
 
-Now with `cds w` running in one terminal you can use `npn run test` to execute your SAPUI5 tests.
+Now with `cds w` running in one terminal you can use `npm run test` to execute your SAPUI5 tests.
 
 ## npm scripts
 Setup some handy npm scripts for testing. Here is an example (note the use of the `concurrently` package to allow for the running of `cds serve` and the wdio tests at the same time:
