@@ -210,7 +210,7 @@ In your root package json add a script:
 
 Check the wdio QUnit service for details on linking to sapui5 Qunit and OPA5 tests.
 
-Here is an example `integration.test.js`:
+Here is an example `integration.test.js` (add it to the path `app/<mywebapp>/webapp/test/integration/`):
 ```js
 describe('QUnit test page OPA', () => {
     it('should pass QUnit OPA tests - LOCAL', async () => {
